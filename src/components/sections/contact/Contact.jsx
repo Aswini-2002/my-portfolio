@@ -146,7 +146,7 @@ const Contact = () => {
                     className="grid md:grid-cols-2 gap-12 bg-white shadow-2xl rounded-2xl overflow-hidden"
                 >
                     {/* Contact Information Section */}
-                    <div className="bg-gradient-to-br from-orange-500 to-orange-700 p-12 text-white">
+                    <div className="bg-gradient-to-br from-orange-500 to-orange-700 md:p-12 p-6 text-white">
                         <h2 className="text-3xl font-bold mb-8">Contact Information</h2>
                         <div className="space-y-6">
                             {info.map((item, index) => (
@@ -243,7 +243,7 @@ const Contact = () => {
 
                             {/* Email Input */}
                             <div>
-                                <div className="relative">
+                                <div className="relative flex items-center">
                                     <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                                     <input
                                         type="email"
