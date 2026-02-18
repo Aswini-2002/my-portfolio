@@ -2,6 +2,7 @@ import Footer from "./common/layout/footer/Footer";
 import Navbar from "./common/layout/navbar/Navbar";
 import './App.css'
 import Navigation from "./navigation/Navigation";
+import { Analytics } from "@vercel/analytics/react";
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
         </div>
         <Footer />
       </div>
+      <Analytics />
     </>
   )
 }
