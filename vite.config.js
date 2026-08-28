@@ -13,4 +13,7 @@ export default defineConfig({
       plugins: [tailwindcss()],
     },
   },
+  server: {
+    port: Number(process.env.PORT) || 5173,
+  },
 });

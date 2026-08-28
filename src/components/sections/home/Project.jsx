@@ -1,161 +1,115 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Eye, Code, ExternalLink } from 'lucide-react';
+import Reveal from "../../../common/ui/Reveal";
+import Eyebrow from "../../../common/ui/Eyebrow";
 
-import shoppingMania from '../../../assets/shopping mania.png';
-import weatherApp from '../../../assets/wheather app.png';
-import netflixClone from '../../../assets/netflix clone.png';
-import expenseTracker from '../../../assets/expense tracker.png';
-import socialMediaDashboard from '../../../assets/social media dashboard.png';
+import shoppingMania from "../../../assets/shopping mania.png";
+import weatherApp from "../../../assets/wheather app.png";
+import netflixClone from "../../../assets/netflix clone.png";
+import expenseTracker from "../../../assets/expense tracker.png";
+import socialMediaDashboard from "../../../assets/social media dashboard.png";
 
 const content = [
-    {
-        image: shoppingMania,
-        title: "Shopping Mania",
-        content: 'Shopping Mania is a web application developed using HTML, CSS, Python, and SQLite3 for managing and processing online shopping data. It features user-friendly interfaces for browsing products, adding items to the cart, and handling orders. The backend ensures seamless interaction with a database, offering a smooth shopping experience.',
-        technologies: ['HTML', 'CSS', 'Python', 'SQLite'],
-        url: ''
-    },
-    {
-        image: weatherApp,
-        title: "Weather App",
-        content: 'The Weather project is a web application built with HTML, CSS, and JavaScript to provide real-time weather updates for any location. It allows users to search for cities and displays current weather conditions, temperature, and forecasts. The interface is intuitive and responsive, offering a seamless user experience.',
-        technologies: ['HTML', 'CSS', 'JavaScript', 'API'],
-        url: ''
-    },
-    {
-        image: netflixClone,
-        title: "Netflix Clone Application",
-        content: 'The Netflix Clone project is a web application built with HTML, CSS, and JavaScript to replicate the user interface and features of Netflix. It allows users to browse through movies and TV shows, view trailers, and experience a similar layout and design to the original streaming platform. The interface is sleek, responsive, and designed to mimic the Netflix experience.',
-        technologies: ['HTML', 'CSS', 'JavaScript', 'React'],
-        url: ''
-    },
-    {
-        image: expenseTracker,
-        title: "Expense Tracker Application",
-        content: 'The Expense Tracker project is a web application built with HTML, CSS, and JavaScript to help users manage and track their personal finances. It allows users to input their income and expenses, categorize them, and view summaries of their spending. The interface is clean, user-friendly, and responsive, providing an efficient way to monitor financial habits.',
-        technologies: ['HTML', 'CSS', 'JavaScript', 'React'],
-        url: ''
-    },
-    {
-        image: socialMediaDashboard,
-        title: "Social Media Dashboard",
-        content: 'The Social Media Dashboard project is a web application built with HTML, CSS, and JavaScript to provide a centralized platform for monitoring social media activity. Users can view and analyze engagement metrics such as likes, shares, and followers, with a visually appealing and responsive design. The interface is designed for ease of use, offering real-time insights into social media performance.',
-        technologies: ['HTML', 'CSS', 'JavaScript', 'React'],
-        url: ''
-    },
+  {
+    image: shoppingMania,
+    title: "Shopping Mania",
+    tag: "Web App / E-Commerce",
+    content:
+      "A shopping platform for browsing products, managing carts and handling orders, backed by a SQLite database for seamless order processing.",
+    technologies: ["HTML", "CSS", "Python", "SQLite"],
+  },
+  {
+    image: weatherApp,
+    title: "Weather App",
+    tag: "Web App / API Integration",
+    content:
+      "Real-time weather lookups by city with current conditions, temperature and forecasts in a responsive, intuitive interface.",
+    technologies: ["HTML", "CSS", "JavaScript", "API"],
+  },
+  {
+    image: netflixClone,
+    title: "Netflix Clone",
+    tag: "Web App / UI Clone",
+    content:
+      "A pixel-close recreation of Netflix's browsing experience — movie/show grids, trailer previews and a sleek, responsive layout.",
+    technologies: ["HTML", "CSS", "JavaScript", "React"],
+  },
+  {
+    image: expenseTracker,
+    title: "Expense Tracker",
+    tag: "Web App / Personal Finance",
+    content:
+      "Helps users log income and expenses, categorize spending and view summaries — a clean, responsive way to monitor financial habits.",
+    technologies: ["HTML", "CSS", "JavaScript", "React"],
+  },
+  {
+    image: socialMediaDashboard,
+    title: "Social Media Dashboard",
+    tag: "Web App / Analytics",
+    content:
+      "A centralized dashboard for social engagement metrics — likes, shares and followers — with real-time insight in a polished UI.",
+    technologies: ["HTML", "CSS", "JavaScript", "React"],
+  },
 ];
 
 const Project = () => {
-    const [hoveredProject, setHoveredProject] = useState(null);
+  return (
+    <section id="work" className="relative py-28 md:py-36">
+      <div className="container-x">
+        <Reveal className="flex items-end justify-between flex-wrap gap-6 mb-16 md:mb-24">
+          <div>
+            <Eyebrow>Selected Work</Eyebrow>
+            <h2 className="mt-4 font-sans font-medium uppercase tracking-tighter text-4xl md:text-6xl">
+              Projects I&apos;ve built
+            </h2>
+          </div>
+          <p className="max-w-xs font-mono text-xs uppercase tracking-widish text-muted">
+            A handful of things I&apos;ve designed &amp; shipped end-to-end.
+          </p>
+        </Reveal>
 
-    return (
-        <div className=" py-20">
-            <div className="container mx-auto px-4">
-                <motion.h2
-                    initial={{ opacity: 0, y: -50 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    className="text-4xl font-bold text-center mb-16 text-gray-800"
+        <div className="flex flex-col">
+          {content.map((project, index) => (
+            <Reveal key={project.title} delay={index * 0.05}>
+              <div className="group grid md:grid-cols-2 gap-8 md:gap-16 items-center border-t border-line py-12 md:py-16">
+                <div
+                  className={`overflow-hidden rounded-2xl border border-line bg-surface ${
+                    index % 2 !== 0 ? "md:order-2" : ""
+                  }`}
                 >
-                    My <span className="text-orange-500">Projects</span>
-                </motion.h2>
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-64 md:h-80 object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
+                </div>
 
-                {content.map((project, index) => (
-                    <motion.div
-                        key={index}
-                        initial={{ opacity: 0, y: 50 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: index * 0.2 }}
-                        className={`
-                            flex flex-col md:flex-row items-center 
-                            bg-white shadow-lg rounded-xl overflow-hidden 
-                            mb-16 p-6 
-                            ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}
-                        `}
-                        onHoverStart={() => setHoveredProject(index)}
-                        onHoverEnd={() => setHoveredProject(null)}
-                    >
-                        {/* Project Image */}
-                        <div className="md:w-1/2 w-full relative group">
-                            <img
-                                src={project.image}
-                                alt={project.title}
-                                className="w-full h-auto object-cover rounded-lg shadow-md 
-                                transform transition-transform duration-300 
-                                group-hover:scale-105"
-                            />
-                            {/* {hoveredProject === index && (
-                                <div className="absolute inset-0 bg-black bg-opacity-40 
-                                    flex items-center justify-center 
-                                    transition-all duration-300">
-                                    <div className="flex space-x-4">
-                                        <button className="bg-white p-3 rounded-full 
-                                            hover:bg-orange-500 hover:text-white 
-                                            transition-colors">
-                                            <Eye />
-                                        </button>
-                                        <button className="bg-white p-3 rounded-full 
-                                            hover:bg-orange-500 hover:text-white 
-                                            transition-colors">
-                                            <Code />
-                                        </button>
-                                    </div>
-                                </div>
-                            )} */}
-                        </div>
-
-                        {/* Project Details */}
-                        <div className="md:w-1/2 w-full md:pl-8 mt-6 md:mt-0">
-                            <h3 className="text-3xl font-bold mb-4 text-gray-800">
-                                {project.title}
-                            </h3>
-                            <p className="text-gray-600 mb-6 leading-relaxed">
-                                {project.content}
-                            </p>
-
-                            {/* Technologies */}
-                            <div className="flex flex-wrap gap-2 mb-6">
-                                {project.technologies.map((tech, techIndex) => (
-                                    <span
-                                        key={techIndex}
-                                        className="px-3 py-1 bg-orange-100 text-orange-800 
-                                        rounded-full text-sm font-medium"
-                                    >
-                                        {tech}
-                                    </span>
-                                ))}
-                            </div>
-
-                            {/* Project Links */}
-                            {/* <div className="flex space-x-4">
-                                <button className="
-                                    flex items-center gap-2 
-                                    bg-orange-500 text-white 
-                                    px-5 py-2 rounded-full 
-                                    hover:bg-orange-600 
-                                    transition-colors
-                                ">
-                                    <ExternalLink size={18} />
-                                    Live Demo
-                                </button>
-                                <button className="
-                                    flex items-center gap-2 
-                                    border border-orange-500 text-orange-500 
-                                    px-5 py-2 rounded-full 
-                                    hover:bg-orange-500 hover:text-white 
-                                    transition-colors
-                                ">
-                                    <Code size={18} />
-                                    Source Code
-                                </button>
-                            </div> */}
-                        </div>
-                    </motion.div>
-                ))}
-            </div>
+                <div className={index % 2 !== 0 ? "md:order-1" : ""}>
+                  <span className="font-mono text-[11px] uppercase tracking-widish text-accent">
+                    {String(index + 1).padStart(2, "0")} — {project.tag}
+                  </span>
+                  <h3 className="mt-4 font-sans font-medium uppercase tracking-tighter text-3xl md:text-4xl">
+                    {project.title}
+                  </h3>
+                  <p className="mt-4 text-muted leading-relaxed max-w-md">
+                    {project.content}
+                  </p>
+                  <div className="mt-6 flex flex-wrap gap-2">
+                    {project.technologies.map((tech) => (
+                      <span
+                        key={tech}
+                        className="rounded-pill border border-line px-3 py-1 font-mono text-[10px] uppercase tracking-widish text-muted"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </Reveal>
+          ))}
         </div>
-    );
-}
+      </div>
+    </section>
+  );
+};
 
 export default Project;

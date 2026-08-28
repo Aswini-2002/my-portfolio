@@ -1,21 +1,31 @@
-import Footer from "./common/layout/footer/Footer";
-import Navbar from "./common/layout/navbar/Navbar";
-import './App.css'
-import Navigation from "./navigation/Navigation";
 import { Analytics } from "@vercel/analytics/react";
+import Navbar from "./common/layout/navbar/Navbar";
+import Footer from "./common/layout/footer/Footer";
+import Home from "./components/sections/home/Home";
+import Project from "./components/sections/home/Project";
+import About from "./components/sections/about/About";
+import Skills from "./components/sections/skills/Skills";
+import Contact from "./components/sections/contact/Contact";
+import "./App.css";
 
 const App = () => {
   return (
     <>
-      <div className=" bg-zinc-100">
+      <div className="bg-ink text-paper min-h-screen">
+        <div className="grain-overlay" />
         <Navbar />
-        <div className="md:px-32 px-4">
-          <Navigation />
-        </div>
+        <main>
+          <Home />
+          <Project />
+          <About />
+          <Skills />
+          <Contact />
+        </main>
         <Footer />
       </div>
       <Analytics />
     </>
-  )
-}
+  );
+};
+
 export default App;

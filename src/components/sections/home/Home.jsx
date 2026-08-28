@@ -1,80 +1,76 @@
-import Project from "./Project";
-import { motion } from 'framer-motion';
-import { Code, User, Sparkles } from 'lucide-react';
-import { Link } from "react-router-dom";
-import pic from "../../../assets/pic1.jpg"
-
+import { motion } from "framer-motion";
+import { ArrowDown } from "lucide-react";
+import Eyebrow from "../../../common/ui/Eyebrow";
+import PillButton from "../../../common/ui/PillButton";
 
 const Home = () => {
-    return (
-        <>
-            <div className="min-h-screen flex items-center  relative overflow-hidden">
-                {/* Background Decorative Elements */}
-                <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
-                    <div className="absolute top-20 left-20 w-32 h-32 bg-orange-200 rounded-full mix-blend-multiply filter blur-xl animate-blob"></div>
-                    <div className="absolute bottom-20 right-20 w-40 h-40 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-4000"></div>
-                </div>
+  return (
+    <section
+      id="home"
+      className="relative min-h-[100svh] flex flex-col items-center justify-center overflow-hidden px-4 pt-28 pb-32 sm:pb-24"
+    >
+      {/* Ambient glow blobs standing in for the reference site's WebGL liquid blob */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[60vh] w-[60vh] max-w-[560px] max-h-[560px] rounded-full bg-accent/25 blur-[110px] animate-drift" />
+        <div className="absolute left-1/3 top-2/3 h-[40vh] w-[40vh] max-w-[380px] max-h-[380px] rounded-full bg-paper/10 blur-[100px] animate-drift2" />
+      </div>
 
-                <div className="container mx-auto px-4 md:px-8 relative z-10">
-                    <div className="grid md:grid-cols-2 items-center gap-8">
-                        {/* Text Content */}
-                        <motion.div
-                            initial={{ opacity: 0, x: -50 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.8 }}
-                            className="text-center md:text-left space-y-6"
-                        >
-                            <div className="flex items-center justify-center md:justify-start space-x-2 text-gray-600">
-                                <User className="w-5 h-5" />
-                                <span>Frontend Developer</span>
-                            </div>
+      <div className="relative z-10 flex flex-col items-center text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <Eyebrow>FullStack / React.js Developer</Eyebrow>
+        </motion.div>
 
-                            <h1 className="text-4xl md:text-6xl font-bold text-gray-900">
-                                Hello, I'm <span className="text-orange-500">Aswini</span>
-                            </h1>
+        <motion.h1
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.1 }}
+          className="mt-6 font-sans font-medium uppercase leading-[0.92] tracking-tightest text-balance text-[15vw] sm:text-[11vw] md:text-[8rem] lg:text-[9rem]"
+        >
+          I build
+          <br />
+          <span className="text-paper/40">digital</span>
+          <br />
+          experiences
+        </motion.h1>
 
-                            <div className="flex items-center justify-center md:justify-start space-x-2 text-gray-700">
-                                <Code className="w-6 h-6 text-blue-500" />
-                                <p className="text-xl md:text-2xl font-light">
-                                    Crafting Dynamic and Interactive Web Experiences with React.js
-                                </p>
-                            </div>
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.25 }}
+          className="mt-8 max-w-md font-mono text-xs sm:text-sm uppercase tracking-widish text-muted"
+        >
+          Hi, I&apos;m Aswini Prabha Rath — crafting fast, interactive &amp;
+          pixel-perfect interfaces with React.
+        </motion.p>
 
-                            <div className="flex justify-center md:justify-start space-x-4 pt-6">
-                                <Link to="/project">
-                                    <motion.button
-                                        whileHover={{ scale: 1.05 }}
-                                        whileTap={{ scale: 0.95 }}
-                                        className="bg-orange-500 text-white px-6 py-3 rounded-full flex items-center space-x-2 shadow-lg hover:bg-orange-600 transition-colors"
-                                    >
-                                        <Sparkles className="w-5 h-5" />
-                                        <span>View Projects</span>
-                                    </motion.button>
-                                </Link>
-                            </div>
-                        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="mt-10 flex flex-wrap items-center justify-center gap-4"
+        >
+          <PillButton variant="solid" onClick={() => document.getElementById("work")?.scrollIntoView({ behavior: "smooth" })}>
+            View Work
+          </PillButton>
+          <PillButton onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}>
+            Contact Me
+          </PillButton>
+        </motion.div>
+      </div>
 
-                        {/* Profile Placeholder */}
-                        <motion.div
-                            initial={{ opacity: 0, x: 50 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.8 }}
-                            className="hidden md:flex justify-center items-center"
-                        >
-                            <div className="w-72 h-72 bg-gradient-to-br from-orange-300 to-orange-500 rounded-full shadow-xl flex items-center justify-center">
-                                <div className="w-64 h-64 bg-white rounded-full shadow-inner">
-                                    <img src={pic} alt="Aswini Prabha Rath" className="w-full h-full rounded-full" />
-                                </div>
-                            </div>
-                        </motion.div>
-                    </div>
-                </div>
-            </div>
+      <motion.div
+        animate={{ y: [0, 8, 0] }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute bottom-28 sm:bottom-8 text-faint"
+      >
+        <ArrowDown size={18} />
+      </motion.div>
+    </section>
+  );
+};
 
-            <div className="px-4">
-                <Project />
-            </div>
-        </>
-    )
-}
 export default Home;

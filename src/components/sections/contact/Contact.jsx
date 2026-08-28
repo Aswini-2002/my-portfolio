@@ -1,302 +1,244 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import emailjs from '@emailjs/browser';
+import { useState } from "react";
+import emailjs from "@emailjs/browser";
 import {
-    Mail,
-    Phone,
-    FileText,
-    Send,
-    MapPin,
-    User,
-    MessageSquare,
-    CheckCircle,
-    Loader2
-} from 'lucide-react';
+  Mail,
+  Phone,
+  FileText,
+  Send,
+  MapPin,
+  User,
+  MessageSquare,
+  CheckCircle,
+  Loader2,
+  Copy,
+  Check,
+} from "lucide-react";
+import Reveal from "../../../common/ui/Reveal";
+import Eyebrow from "../../../common/ui/Eyebrow";
+import PillButton from "../../../common/ui/PillButton";
+
+const EMAIL = "aswini.pr.rath@gmail.com";
+
+const info = [
+  { icon: Mail, title: "Email", value: EMAIL },
+  { icon: Phone, title: "Phone", value: "+91-6370706037" },
+  { icon: MapPin, title: "Location", value: "Bengaluru, India" },
+  {
+    icon: FileText,
+    title: "Resume",
+    value: "View my resume",
+    link: "https://drive.google.com/file/d/1XTNl8YvyWrBaLPFE-ySLmd676JKD0uO9/view?usp=drive_link",
+  },
+];
+
+const fieldClass =
+  "w-full bg-transparent border-b border-line focus:border-accent outline-none transition-colors py-3 pl-8 placeholder:text-faint";
 
 const Contact = () => {
-    const [name, setName] = useState("");
-    const [phone, setPhone] = useState("");
-    const [email, setEmail] = useState("");
-    const [message, setMessage] = useState("");
-    const [errors, setErrors] = useState({});
-    const [submitStatus, setSubmitStatus] = useState("");
-    const [isLoading, setIsLoading] = useState(false);
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [errors, setErrors] = useState({});
+  const [submitStatus, setSubmitStatus] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [copied, setCopied] = useState(false);
 
-    const info = [
-        {
-            icon: Mail,
-            title: "Email",
-            links: "2002aswinirath@gmail.com"
-        },
-        {
-            icon: Phone,
-            title: "Phone number",
-            links: "+91-6370706037"
-        },
-        {
-            icon: FileText,
-            title: "Resume",
-            links: "View my resume here",
-            link: 'https://drive.google.com/file/d/1XTNl8YvyWrBaLPFE-ySLmd676JKD0uO9/view?usp=drive_link',
-        }
-    ];
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(EMAIL);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // clipboard unavailable — silently ignore
+    }
+  };
 
-    const validateForm = () => {
-        const newErrors = {};
+  const validateForm = () => {
+    const newErrors = {};
+    if (!name) newErrors.name = "Full name is required";
 
-        // Name validation
-        if (!name) newErrors.name = "Full name is required";
+    const phoneRegex = /^[0-9]{10}$/;
+    if (!phone.match(phoneRegex)) newErrors.phone = "Enter a valid 10-digit phone number";
 
-        // Phone number validation (example: 10 digits)
-        const phoneRegex = /^[0-9]{10}$/;
-        if (!phone.match(phoneRegex)) newErrors.phone = "Enter a valid 10-digit phone number";
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email.match(emailRegex)) newErrors.email = "Enter a valid email address";
 
-        // Email validation
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!email.match(emailRegex)) newErrors.email = "Enter a valid email address";
+    if (!message) newErrors.message = "Message is required";
 
-        // Message validation
-        if (!message) newErrors.message = "Message is required";
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
-        setErrors(newErrors);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSubmitStatus("");
+    setIsLoading(true);
 
-        return Object.keys(newErrors).length === 0;
-    };
+    if (validateForm()) {
+      const serviceId = "service_bm9goxa";
+      const templateIdContact = "template_zu73tvs";
+      const templateIdReply = "template_j8ytkvd";
+      const publicKey = "mBznRq9QCDoYPursH";
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+      const contactTemplateParams = { from_name: name, from_email: email, phone, message };
+      const replyTemplateParams = { to_email: email, from_name: name, message };
 
-        // Reset previous submit status
-        setSubmitStatus("");
-        setIsLoading(true);
+      emailjs
+        .send(serviceId, templateIdContact, contactTemplateParams, publicKey)
+        .then(() => emailjs.send(serviceId, templateIdReply, replyTemplateParams, publicKey))
+        .then(() => {
+          setName("");
+          setEmail("");
+          setMessage("");
+          setPhone("");
+          setSubmitStatus("success");
+          setIsLoading(false);
+          setTimeout(() => setSubmitStatus(""), 3000);
+        })
+        .catch((error) => {
+          console.error("Failed to send emails:", error);
+          setSubmitStatus("error");
+          setIsLoading(false);
+          setTimeout(() => setSubmitStatus(""), 3000);
+        });
+    } else {
+      setIsLoading(false);
+    }
+  };
 
-        if (validateForm()) {
-            // EmailJS configuration
-            const serviceId = 'service_bm9goxa';
-            const templateIdContact = 'template_zu73tvs';
-            const templateIdReply = 'template_j8ytkvd'; // Add your reply template ID here
-            const publicKey = 'mBznRq9QCDoYPursH';
+  return (
+    <section id="contact" className="relative py-28 md:py-36 border-t border-line">
+      <div className="container-x">
+        <Reveal className="text-center max-w-2xl mx-auto mb-16 md:mb-20">
+          <Eyebrow className="justify-center">Contact</Eyebrow>
+          <h2 className="mt-4 font-sans font-medium uppercase tracking-tighter text-4xl md:text-6xl text-balance">
+            Let&apos;s build something together
+          </h2>
+          <p className="mt-5 text-muted leading-relaxed">
+            Have a project in mind or just want to say hi? My inbox is always open.
+          </p>
+          <div className="mt-8 flex items-center justify-center">
+            <PillButton onClick={copyEmail}>
+              {copied ? <Check size={14} /> : <Copy size={14} />}
+              {copied ? "Copied!" : EMAIL}
+            </PillButton>
+          </div>
+        </Reveal>
 
-            // Prepare template parameters for contact submission
-            const contactTemplateParams = {
-                from_name: name,
-                from_email: email,
-                phone: phone,
-                message: message
-            };
-
-            // Prepare template parameters for reply email
-            const replyTemplateParams = {
-                to_email: email,
-                from_name: name,
-                message: message
-            };
-
-            // Send initial contact email
-            emailjs.send(serviceId, templateIdContact, contactTemplateParams, publicKey)
-                .then((contactResponse) => {
-                    console.log('Contact email sent successfully!', contactResponse);
-
-                    // Send reply email
-                    return emailjs.send(serviceId, templateIdReply, replyTemplateParams, publicKey);
-                })
-                .then((replyResponse) => {
-                    console.log('Reply email sent successfully!', replyResponse);
-
-                    // Reset form fields
-                    setName("");
-                    setEmail("");
-                    setMessage("");
-                    setPhone("");
-
-                    // Show success message
-                    setSubmitStatus("success");
-                    setIsLoading(false);
-
-                    // Clear success message after 3 seconds
-                    setTimeout(() => {
-                        setSubmitStatus("");
-                    }, 3000);
-                })
-                .catch((error) => {
-                    console.error('Failed to send emails:', error);
-
-                    // Show error message
-                    setSubmitStatus("error");
-                    setIsLoading(false);
-
-                    // Clear error message after 3 seconds
-                    setTimeout(() => {
-                        setSubmitStatus("");
-                    }, 3000);
-                });
-        } else {
-            // If validation fails, stop loading
-            setIsLoading(false);
-        }
-    };
-
-    return (
-        <div className=" min-h-screen flex items-center py-20">
-            <div className="container mx-auto px-4">
-                <motion.div
-                    initial={{ opacity: 0, y: 50 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    className="grid md:grid-cols-2 gap-12 bg-white shadow-2xl rounded-2xl overflow-hidden"
-                >
-                    {/* Contact Information Section */}
-                    <div className="bg-gradient-to-br from-orange-500 to-orange-700 md:p-12 p-6 text-white">
-                        <h2 className="text-3xl font-bold mb-8">Contact Information</h2>
-                        <div className="space-y-6">
-                            {info.map((item, index) => (
-                                <div key={index} className="flex items-center space-x-4">
-                                    <item.icon className="w-6 h-6" />
-                                    <div>
-                                        <p className="font-medium">{item.title}</p>
-                                        {item.link ? (
-                                            <a
-                                                href={item.link}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="hover:text-gray-200 transition-colors"
-                                            >
-                                                {item.links}
-                                            </a>
-                                        ) : (
-                                            <p>{item.links}</p>
-                                        )}
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-
-                        {/* Location Info */}
-                        <div className="mt-12 flex items-center space-x-4">
-                            <MapPin className="w-6 h-6" />
-                            <p>Bhubaneswar, Odisha, India</p>
-                        </div>
+        <div className="grid md:grid-cols-2 gap-8 md:gap-16">
+          <Reveal>
+            <div className="h-full rounded-2xl border border-line bg-surface p-8 md:p-10">
+              <h3 className="font-sans font-medium uppercase tracking-tighter text-2xl mb-8">
+                Contact Information
+              </h3>
+              <div className="space-y-6">
+                {info.map((item) => (
+                  <div key={item.title} className="flex items-start gap-4">
+                    <item.icon size={18} className="text-accent mt-0.5 shrink-0" />
+                    <div>
+                      <p className="font-mono text-[10px] uppercase tracking-widish text-muted">
+                        {item.title}
+                      </p>
+                      {item.link ? (
+                        <a
+                          href={item.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:text-accent transition-colors"
+                        >
+                          {item.value}
+                        </a>
+                      ) : (
+                        <p>{item.value}</p>
+                      )}
                     </div>
-
-                    {/* Contact Form Section */}
-                    <div className="md:py-12 py-6 md:pr-12 px-6 md:px-0 relative">
-                        {/* Loading Overlay */}
-                        {isLoading && (
-                            <div className="absolute inset-0 bg-white/70 z-50 flex items-center justify-center">
-                                <Loader2 className="w-12 h-12 animate-spin text-orange-500" />
-                            </div>
-                        )}
-
-                        {/* Success/Error Message */}
-                        {submitStatus === "success" && (
-                            <div className="absolute top-0 left-0 right-0 bg-green-500 text-white p-4 flex items-center justify-center">
-                                <CheckCircle className="mr-2" />
-                                Your form has been submitted successfully!
-                            </div>
-                        )}
-                        {submitStatus === "error" && (
-                            <div className="absolute top-0 left-0 right-0 bg-red-500 text-white p-4 flex items-center justify-center">
-                                Failed to send message. Please try again.
-                            </div>
-                        )}
-
-                        <h1 className="text-4xl font-bold text-gray-900 mb-8">
-                            Get in <span className="text-orange-500">Touch</span>
-                        </h1>
-
-                        <form onSubmit={handleSubmit} className="space-y-6">
-                            {/* Name Input */}
-                            <div>
-                                <div className="relative">
-                                    <User className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                                    <input
-                                        type="text"
-                                        placeholder="Full Name"
-                                        className="w-full pl-10 pb-2 border-b-2 border-gray-300 
-                      focus:border-orange-500 transition-colors 
-                      placeholder-gray-400"
-                                        value={name}
-                                        onChange={(e) => setName(e.target.value)}
-                                        disabled={isLoading}
-                                    />
-                                </div>
-                                {errors.name && <p className="text-red-500 mt-1 text-sm">{errors.name}</p>}
-                            </div>
-
-                            {/* Phone Input */}
-                            <div>
-                                <div className="relative">
-                                    <Phone className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                                    <input
-                                        type="tel"
-                                        placeholder="Phone Number"
-                                        className="w-full pl-10 pb-2 border-b-2 border-gray-300 
-                      focus:border-orange-500 transition-colors 
-                      placeholder-gray-400"
-                                        value={phone}
-                                        onChange={(e) => setPhone(e.target.value)}
-                                        disabled={isLoading}
-                                    />
-                                </div>
-                                {errors.phone && <p className="text-red-500 mt-1 text-sm">{errors.phone}</p>}
-                            </div>
-
-                            {/* Email Input */}
-                            <div>
-                                <div className="relative flex items-center">
-                                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                                    <input
-                                        type="email"
-                                        placeholder="Email Address"
-                                        className="w-full pl-10 pb-2 border-b-2 border-gray-300 
-                      focus:border-orange-500 transition-colors 
-                      placeholder-gray-400"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        disabled={isLoading}
-                                    />
-                                </div>
-                                {errors.email && <p className="text-red-500 mt-1 text-sm">{errors.email}</p>}
-                            </div>
-
-                            {/* Message Input */}
-                            <div>
-                                <div className="relative">
-                                    <MessageSquare className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                                    <textarea
-                                        placeholder="Your Message"
-                                        className="w-full pl-10 pb-2 border-b-2 border-gray-300 
-                      focus:border-orange-500 transition-colors 
-                      placeholder-gray-400 resize-none h-24"
-                                        value={message}
-                                        onChange={(e) => setMessage(e.target.value)}
-                                        disabled={isLoading}
-                                    />
-                                </div>
-                                {errors.message && <p className="text-red-500 mt-1 text-sm">{errors.message}</p>}
-                            </div>
-
-                            {/* Submit Button */}
-                            <button
-                                type="submit"
-                                className="w-full bg-orange-500 text-white py-3 rounded-lg 
-                  hover:bg-orange-600 transition-colors 
-                  flex items-center justify-center space-x-2"
-                                disabled={isLoading}
-                            >
-                                {isLoading ? (
-                                    <Loader2 className="w-5 h-5 animate-spin mr-2" />
-                                ) : (
-                                    <Send className="w-5 h-5" />
-                                )}
-                                <span>{isLoading ? 'Sending...' : 'Send Message'}</span>
-                            </button>
-                        </form>
-                    </div>
-                </motion.div>
+                  </div>
+                ))}
+              </div>
             </div>
+          </Reveal>
+
+          <Reveal delay={0.1}>
+            <form onSubmit={handleSubmit} className="relative space-y-6">
+              {isLoading && (
+                <div className="absolute inset-0 bg-ink/70 z-20 flex items-center justify-center rounded-2xl">
+                  <Loader2 className="w-8 h-8 animate-spin text-accent" />
+                </div>
+              )}
+              {submitStatus === "success" && (
+                <div className="absolute -top-4 inset-x-0 -translate-y-full bg-paper text-ink rounded-pill px-4 py-3 flex items-center justify-center gap-2 font-mono text-xs uppercase tracking-widish">
+                  <CheckCircle size={16} /> Message sent successfully!
+                </div>
+              )}
+              {submitStatus === "error" && (
+                <div className="absolute -top-4 inset-x-0 -translate-y-full bg-red-500 text-white rounded-pill px-4 py-3 flex items-center justify-center font-mono text-xs uppercase tracking-widish">
+                  Failed to send. Please try again.
+                </div>
+              )}
+
+              <div className="relative">
+                <User size={16} className="absolute left-0 top-1/2 -translate-y-1/2 text-faint" />
+                <input
+                  type="text"
+                  placeholder="Full Name"
+                  className={fieldClass}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  disabled={isLoading}
+                />
+                {errors.name && <p className="text-red-400 mt-1 text-xs">{errors.name}</p>}
+              </div>
+
+              <div className="relative">
+                <Phone size={16} className="absolute left-0 top-1/2 -translate-y-1/2 text-faint" />
+                <input
+                  type="tel"
+                  placeholder="Phone Number"
+                  className={fieldClass}
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  disabled={isLoading}
+                />
+                {errors.phone && <p className="text-red-400 mt-1 text-xs">{errors.phone}</p>}
+              </div>
+
+              <div className="relative">
+                <Mail size={16} className="absolute left-0 top-1/2 -translate-y-1/2 text-faint" />
+                <input
+                  type="email"
+                  placeholder="Email Address"
+                  className={fieldClass}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  disabled={isLoading}
+                />
+                {errors.email && <p className="text-red-400 mt-1 text-xs">{errors.email}</p>}
+              </div>
+
+              <div className="relative">
+                <MessageSquare size={16} className="absolute left-0 top-4 text-faint" />
+                <textarea
+                  placeholder="Your Message"
+                  rows={3}
+                  className={`${fieldClass} resize-none`}
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  disabled={isLoading}
+                />
+                {errors.message && <p className="text-red-400 mt-1 text-xs">{errors.message}</p>}
+              </div>
+
+              <PillButton type="submit" variant="solid" className="w-full" onClick={undefined}>
+                {isLoading ? <Loader2 size={14} className="animate-spin" /> : <Send size={14} />}
+                {isLoading ? "Sending..." : "Send Message"}
+              </PillButton>
+            </form>
+          </Reveal>
         </div>
-    );
-}
+      </div>
+    </section>
+  );
+};
 
 export default Contact;
