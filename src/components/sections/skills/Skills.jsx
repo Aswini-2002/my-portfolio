@@ -8,21 +8,21 @@ const groups = [
     title: "Frontend Development",
     description:
       "Building responsive, component-driven interfaces that feel fast and behave predictably.",
-    stack: ["React.js", "JavaScript (ES6+)", "HTML5", "CSS3", "Tailwind CSS", "Responsive Design"],
+    stack: ["React.js", "Next.js", "JavaScript (ES6+)", "TypeScript", "Redux/Redux-Saga", "React Native", "Responsive Design"],
   },
   {
     index: "02",
-    title: "UI Motion & Tooling",
+    title: "Automation & AI Integrations",
     description:
-      "Bringing interfaces to life with purposeful animation, backed by a clean dev workflow.",
-    stack: ["Framer Motion", "Vite", "Git & GitHub", "REST APIs", "Figma to Code"],
+      "Designing hands-off systems that connect APIs, LLMs, and business workflows",
+    stack: ["n8n", "LLM Integrations", "Web Data Scraping", "AI Voice Automation", "REST APIs"],
   },
   {
     index: "03",
-    title: "Backend Fundamentals",
+    title: "Backend & Infrastructure",
     description:
       "Comfortable working a layer deeper — wiring up data and simple services behind the UI.",
-    stack: ["Python", "SQLite", "API Integration", "Data Handling"],
+    stack: ["Node.js", "Python", "SQL", "AWS (EC2, S3)", "Git, GitHub"],
   },
 ];
 

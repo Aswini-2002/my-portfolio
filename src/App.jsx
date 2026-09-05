@@ -6,6 +6,7 @@ import Project from "./components/sections/home/Project";
 import About from "./components/sections/about/About";
 import Skills from "./components/sections/skills/Skills";
 import Contact from "./components/sections/contact/Contact";
+import ChatWidget from "./components/common/chatbot/ChatWidget";
 import "./App.css";
 
 const App = () => {
@@ -23,6 +24,7 @@ const App = () => {
         </main>
         <Footer />
       </div>
+      <ChatWidget />
       <Analytics />
     </>
   );

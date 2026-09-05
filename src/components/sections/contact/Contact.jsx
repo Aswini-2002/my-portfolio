@@ -27,7 +27,7 @@ const info = [
     icon: FileText,
     title: "Resume",
     value: "View my resume",
-    link: "https://drive.google.com/file/d/1XTNl8YvyWrBaLPFE-ySLmd676JKD0uO9/view?usp=drive_link",
+    link: "https://drive.google.com/file/d/1C02GWCw7KKq1BS2E-FoIZVdxbIYsywVl/view?usp=sharing",
   },
 ];
 

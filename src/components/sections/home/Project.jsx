@@ -1,52 +1,44 @@
 import Reveal from "../../../common/ui/Reveal";
 import Eyebrow from "../../../common/ui/Eyebrow";
 
-import shoppingMania from "../../../assets/shopping mania.png";
-import weatherApp from "../../../assets/wheather app.png";
-import netflixClone from "../../../assets/netflix clone.png";
-import expenseTracker from "../../../assets/expense tracker.png";
-import socialMediaDashboard from "../../../assets/social media dashboard.png";
+import macroChef from "../../../assets/MacroChef.ai.png";
+import nexusReach from "../../../assets/NexusReach.png";
+import vaultView from "../../../assets/VaultView.png";
+import Ingetra from "../../../assets/Ingetra.png";
+// import socialMediaDashboard from "../../../assets/social media dashboard.png";
 
 const content = [
   {
-    image: shoppingMania,
-    title: "Shopping Mania",
-    tag: "Web App / E-Commerce",
+    image: macroChef,
+    title: "MacroChef.ai",
+    tag: "Web App / AI Health",
     content:
-      "A shopping platform for browsing products, managing carts and handling orders, backed by a SQLite database for seamless order processing.",
-    technologies: ["HTML", "CSS", "Python", "SQLite"],
+      "An AI-powered nutrition application that generates custom meal plans based on available ingredients while calculating precise macronutrient and calorie metrics.",
+    technologies: ["React.js", "Next.js", "Python", "FastAPI", "PostgreSQL"],
   },
   {
-    image: weatherApp,
-    title: "Weather App",
-    tag: "Web App / API Integration",
+    image: nexusReach,
+    title: "Nexus Reach",
+    tag: "SaaS / CRM Automation",
     content:
-      "Real-time weather lookups by city with current conditions, temperature and forecasts in a responsive, intuitive interface.",
-    technologies: ["HTML", "CSS", "JavaScript", "API"],
+      "An intelligent workflow automation platform enabling teams to manage automated cold email sequences, extract leads, and execute digital document sign-offs.",
+    technologies: ["Next.js", "Redux-Saga", "Node.js", "PostgreSQL", "Docker", "AWS"],
   },
   {
-    image: netflixClone,
-    title: "Netflix Clone",
-    tag: "Web App / UI Clone",
+    image: vaultView,
+    title: "VaultView Analytics",
+    tag: "FinTech / Admin Dashboard",
     content:
-      "A pixel-close recreation of Netflix's browsing experience — movie/show grids, trailer previews and a sleek, responsive layout.",
-    technologies: ["HTML", "CSS", "JavaScript", "React"],
+      "A high-concurrency financial administration dashboard designed to monitor real-time payment gateways, track user transactions, and manage security compliance.",
+    technologies: ["React.js", "Redux-Saga", "Node.js", "PostgreSQL", "AWS S3", "AWS EC2"],
   },
   {
-    image: expenseTracker,
-    title: "Expense Tracker",
-    tag: "Web App / Personal Finance",
+    image: Ingetra,
+    title: "Ingetra",
+    tag: "Data Engineering / Analytics",
     content:
-      "Helps users log income and expenses, categorize spending and view summaries — a clean, responsive way to monitor financial habits.",
-    technologies: ["HTML", "CSS", "JavaScript", "React"],
-  },
-  {
-    image: socialMediaDashboard,
-    title: "Social Media Dashboard",
-    tag: "Web App / Analytics",
-    content:
-      "A centralized dashboard for social engagement metrics — likes, shares and followers — with real-time insight in a polished UI.",
-    technologies: ["HTML", "CSS", "JavaScript", "React"],
+      "A scalable data ingestion pipeline that automatically collects, structures, and visualizes large volumes of unstructured data from multiple web feeds.",
+    technologies: ["Python", "FastAPI", "Next.js", "PostgreSQL", "AWS", "Docker"],
   },
 ];
 
@@ -71,9 +63,8 @@ const Project = () => {
             <Reveal key={project.title} delay={index * 0.05}>
               <div className="group grid md:grid-cols-2 gap-8 md:gap-16 items-center border-t border-line py-12 md:py-16">
                 <div
-                  className={`overflow-hidden rounded-2xl border border-line bg-surface ${
-                    index % 2 !== 0 ? "md:order-2" : ""
-                  }`}
+                  className={`overflow-hidden rounded-2xl border border-line bg-surface ${index % 2 !== 0 ? "md:order-2" : ""
+                    }`}
                 >
                   <img
                     src={project.image}

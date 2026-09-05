@@ -17,7 +17,7 @@ const links = [
   },
   {
     title: "View my Resume",
-    link: "https://drive.google.com/file/d/1XTNl8YvyWrBaLPFE-ySLmd676JKD0uO9/view?usp=drive_link",
+    link: "https://drive.google.com/file/d/1C02GWCw7KKq1BS2E-FoIZVdxbIYsywVl/view?usp=sharing",
     icon: FileText,
   },
 ];
@@ -47,7 +47,7 @@ const About = () => {
         <div className="mt-16 md:mt-20 grid md:grid-cols-2 gap-12 md:gap-20 items-center">
           <Reveal className="order-2 md:order-1">
             <h2 className="font-sans font-medium uppercase tracking-tighter text-3xl md:text-5xl text-balance">
-              My name is Aswini Prabha Rath, and I&apos;m a frontend developer
+              My name is Aswini Prabha Rath, and I&apos;m a full stack developer
               who tailors interactive digital experiences.
             </h2>
             <p className="mt-6 text-muted leading-relaxed max-w-lg">
