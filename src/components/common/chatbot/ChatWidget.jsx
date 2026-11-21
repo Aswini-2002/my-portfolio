@@ -5,8 +5,11 @@ import { MessageCircle, Send, X, Loader2 } from "lucide-react";
 const GREETING = {
   role: "assistant",
   content:
-    "Hi! I'm Aswini's AI assistant. Ask me about their experience, skills or projects.",
+    "Well, hello there I'm Aswini's manager — yes, the one who takes all the credit. Ask me about his experience, skills or projects, and I'll pretend I did the work too.",
 };
+
+const TEA_BREAK_MESSAGE =
+  "The manager just popped out for a tea break ☕ Come after sometime.";
 
 /**
  * Floating chat widget scoped to answering questions about Aswini
@@ -57,13 +60,13 @@ const ChatWidget = () => {
         // environment) — fall through to the generic error below.
       }
 
-      if (!res.ok || !data) {
-        throw new Error(data?.error || "The assistant is temporarily unavailable. Please try again.");
+      if (!res.ok || !data?.reply) {
+        throw new Error(TEA_BREAK_MESSAGE);
       }
 
       setMessages((prev) => [...prev, { role: "assistant", content: data.reply }]);
-    } catch (err) {
-      setError(err.message || "Something went wrong. Please try again.");
+    } catch {
+      setError(TEA_BREAK_MESSAGE);
     } finally {
       setIsLoading(false);
     }
@@ -108,11 +111,10 @@ const ChatWidget = () => {
                   className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
                 >
                   <p
-                    className={`max-w-[85%] whitespace-pre-line rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
-                      m.role === "user"
+                    className={`max-w-[85%] whitespace-pre-line rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${m.role === "user"
                         ? "bg-accent text-ink"
                         : "border border-line bg-surface text-paper"
-                    }`}
+                      }`}
                   >
                     {m.content}
                   </p>
