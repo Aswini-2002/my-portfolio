@@ -5,11 +5,11 @@ import { MessageCircle, Send, X, Loader2 } from "lucide-react";
 const GREETING = {
   role: "assistant",
   content:
-    "Well, hello there I'm Aswini's manager — yes, the one who takes all the credit. Ask me about his experience, skills or projects, and I'll pretend I did the work too.",
+    "Good day. J.A.R.V.I.S. online — Aswini's portfolio assistant. Ask me about the experience, skills or projects, and I shall endeavour to sound only mildly impressed.",
 };
 
 const TEA_BREAK_MESSAGE =
-  "The manager just popped out for a tea break ☕ Come after sometime.";
+  "J.A.R.V.I.S. is rebooting — all systems should be nominal shortly. Do try again in a moment.";
 
 /**
  * Floating chat widget scoped to answering questions about Aswini
